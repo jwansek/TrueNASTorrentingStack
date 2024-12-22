@@ -19,6 +19,49 @@ services:
             rr-net:
                 ipv4_address: "192.168.23.8"
 
+    flaresolverr:
+        restart: unless-stopped
+        container_name: flaresolverr
+        ports:
+            - '192.168.23.9:8191:8191'
+        image: ghcr.io/flaresolverr/flaresolverr:latest
+        mac_address: 78:4b:b7:2a:00:cc
+        networks:
+            rr-net:
+                ipv4_address: "192.168.23.9"
+
+    prowlarr:
+        restart: unless-stopped
+        container_name: prowlarr
+        ports:
+            - '192.168.23.5:9696:9696'
+        image: lscr.io/linuxserver/prowlarr:latest
+        volumes:
+            - /mnt/theNVMEVault/apps/prowlarr:/config
+        mac_address: aa:a1:59:d9:bf:50
+        networks:
+            rr-net:
+                ipv4_address: "192.168.23.5"
+        depends_on:
+            - flaresolverr
+
+    sonarr:
+        restart: unless-stopped
+        container_name: sonarr
+        ports:
+            - '192.168.23.6:8989:8989'
+        image: lscr.io/linuxserver/sonarr:latest
+        volumes:
+            - /mnt/spinningRust/spinningRust/Videos:/media/Videos
+            - /mnt/theNVMEVault/apps/sonarr:/config
+        mac_address: aa:a1:59:bf:3f:55
+        networks:
+            rr-net:
+                ipv4_address: "192.168.23.6"
+        depends_on:
+            - prowlarr
+            - transmission
+
 networks:
     rr-net:
         name: rr-net
