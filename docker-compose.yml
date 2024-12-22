@@ -10,6 +10,9 @@ services:
         volumes:
             - /mnt/spinningRust/spinningRust/Videos:/media/Videos
             - /mnt/spinningRust/spinningRust/InstallersTorrented:/media/InstallersTorrented
+            - /mnt/spinningRust/spinningRust/Music:/media/Music
+            - /mnt/spinningRust/ISOs:/media/ISOs 
+            - /mnt/theNVMEVault/theVault/Books:/media/Books
             - /mnt/theNVMEVault/apps/transmission:/config
         mac_address: aa:a1:59:74:ff:b1
         networks:
