@@ -1,0 +1,30 @@
+services:
+    transmission:
+        restart: unless-stopped
+        container_name: transmission
+        ports:
+            - '192.168.23.8:9091:9091'
+            - '192.168.23.8:51413:51413'
+            - '192.168.23.8:51413:51413/udp'
+        image: lscr.io/linuxserver/transmission:latest
+        volumes:
+            - /mnt/spinningRust/spinningRust/Videos:/media/Videos
+            - /mnt/spinningRust/spinningRust/InstallersTorrented:/media/InstallersTorrented
+            - /mnt/theNVMEVault/apps/transmission:/config
+        mac_address: aa:a1:59:74:ff:b1
+        networks:
+            rr-net:
+                ipv4_address: "192.168.23.8"
+
+networks:
+    rr-net:
+        name: rr-net
+        driver: macvlan
+        driver_opts:
+            parent: br23
+        ipam:
+            driver: default
+            config:
+                - subnet: "192.168.23.0/24"
+                  gateway: 192.168.23.1
+            
