@@ -62,6 +62,40 @@ services:
             - prowlarr
             - transmission
 
+    radarr:
+        restart: unless-stopped
+        container_name: radarr
+        ports:
+            - '192.168.23.7:7878:7878'
+        image: lscr.io/linuxserver/radarr:latest
+        volumes:
+            - /mnt/spinningRust/spinningRust/Videos:/media/Videos
+            - /mnt/theNVMEVault/apps/radarr:/config
+        mac_address: aa:a1:59:4d:61:55
+        networks:
+            rr-net:
+                ipv4_address: "192.168.23.7"
+        depends_on:
+            - prowlarr
+            - transmission
+
+    bazarr:
+        restart: unless-stopped
+        container_name: bazarr
+        ports:
+            - '192.168.23.10:6767:6767'
+        image: lscr.io/linuxserver/bazarr:latest
+        volumes:
+            - /mnt/spinningRust/spinningRust/Videos:/media/Videos
+            - /mnt/theNVMEVault/apps/bazarr:/config
+        mac_address: aa:a1:59:d3:3f:21
+        networks:
+            rr-net:
+                ipv4_address: "192.168.23.10"
+        depends_on:
+            - sonarr
+            - radarr
+
 networks:
     rr-net:
         name: rr-net
