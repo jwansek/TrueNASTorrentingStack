@@ -1,7 +1,27 @@
 services:
+    transmission_2:
+        restart: unless-stopped
+        container_name: transmission_2
+        ports:
+            - '192.168.23.11:9091:9091'
+            - '192.168.23.11:51413:51413'
+            - '192.168.23.11:51413:51413/udp'
+        image: lscr.io/linuxserver/transmission:latest
+        volumes:
+            - /mnt/spinningRust/spinningRust/Videos:/media/Videos
+            - /mnt/spinningRust/spinningRust/InstallersTorrented:/media/InstallersTorrented
+            - /mnt/spinningRust/spinningRust/Music:/media/Music
+            - /mnt/spinningRust/ISOs:/media/ISOs 
+            - /mnt/theNVMEVault/theVault/Books:/media/Books
+            - ./transmission_2:/config
+        mac_address: aa:a1:59:74:ff:b2
+        networks:
+            rr-net:
+                ipv4_address: "192.168.23.11"
+
     transmission:
         restart: unless-stopped
-        container_name: transmission
+        container_name: transmission_1
         ports:
             - '192.168.23.8:9091:9091'
             - '192.168.23.8:51413:51413'
@@ -13,7 +33,7 @@ services:
             - /mnt/spinningRust/spinningRust/Music:/media/Music
             - /mnt/spinningRust/ISOs:/media/ISOs 
             - /mnt/theNVMEVault/theVault/Books:/media/Books
-            - /mnt/theNVMEVault/apps/transmission:/config
+            - ./transmission_1:/config
         mac_address: aa:a1:59:74:ff:b1
         networks:
             rr-net:
@@ -31,8 +51,8 @@ services:
                 ipv4_address: "192.168.23.9"
 
     prowlarr:
-        restart: unless-stopped
         container_name: prowlarr
+        restart: unless-stopped
         ports:
             - '192.168.23.5:9696:9696'
         image: lscr.io/linuxserver/prowlarr:latest
@@ -46,8 +66,8 @@ services:
             - flaresolverr
 
     sonarr:
-        restart: unless-stopped
         container_name: sonarr
+        restart: unless-stopped
         ports:
             - '192.168.23.6:8989:8989'
         image: lscr.io/linuxserver/sonarr:latest
@@ -63,8 +83,8 @@ services:
             - transmission
 
     radarr:
-        restart: unless-stopped
         container_name: radarr
+        restart: unless-stopped
         ports:
             - '192.168.23.7:7878:7878'
         image: lscr.io/linuxserver/radarr:latest
@@ -80,8 +100,8 @@ services:
             - transmission
 
     bazarr:
-        restart: unless-stopped
         container_name: bazarr
+        restart: unless-stopped
         ports:
             - '192.168.23.10:6767:6767'
         image: lscr.io/linuxserver/bazarr:latest
