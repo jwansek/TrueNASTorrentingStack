@@ -16,3 +16,4 @@ Sadly, as of TrueNAS Scale Electric Eel, and apparently Fangtooth too, this is n
 [Which has annoyed a lot of people.](https://forums.truenas.com/t/allow-apps-to-have-their-own-ip/12042)
 This is how I have achieved it, using docker-compose.
 
+*UPDATE*: As of TrueNAS 25, it is possible to limit which addresses docker containers bind to, but it is still not possible to configure containers' routing in the UI. We're still waiting for a `macvlan` wrapper.
