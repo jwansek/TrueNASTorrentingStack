@@ -64,6 +64,8 @@ services:
                 ipv4_address: "192.168.23.5"
         depends_on:
             - flaresolverr
+        dns:
+            - "192.168.23.1"
 
     sonarr:
         container_name: sonarr
@@ -81,6 +83,8 @@ services:
         depends_on:
             - prowlarr
             - transmission
+        dns:
+            - "192.168.23.1"
 
     radarr:
         container_name: radarr
@@ -98,6 +102,8 @@ services:
         depends_on:
             - prowlarr
             - transmission
+        dns:
+            - "192.168.23.1"
 
     bazarr:
         container_name: bazarr
@@ -115,6 +121,24 @@ services:
         depends_on:
             - sonarr
             - radarr
+
+    whisparr:
+        container_name: whisparr
+        restart: unless-stopped
+        image: ghcr.io/hotio/whisparr
+        ports:
+            - '192.168.23.12:6969:6969'
+        volumes:
+            - ../whisparr:/config
+            - /mnt/spinningRust/spinningRust/Videos:/media/Videos
+        mac_address: f4:0e:2e:e2:84:35
+        networks:
+            rr-net:
+                ipv4_address: "192.168.23.12"
+        depends_on:
+            - prowlarr
+        dns:
+            - "192.168.23.1"
 
 networks:
     rr-net:
