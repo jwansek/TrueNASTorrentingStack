@@ -1,3 +1,0 @@
-[submodule "ReverseSSHTunnel"]
-	path = ReverseSSHTunnel
-	url = git@github.com:jwansek/ReverseSSHTunnel.git
