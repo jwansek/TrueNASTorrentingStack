@@ -2,7 +2,7 @@
 Use `macvlan`s to bind docker containers to a single address.
 
 When torrenting we typically want to hide our real IP address so our ISP doesn't get mad at us.
-I have a VLAN, set up in pfsense, that routes through wireguard to an AirVPN VPN, thus hiding my
+[I have a VLAN, set up in pfsense (tutorial link)](https://boymoder.blog/thought?id=29), that routes through wireguard to an AirVPN VPN, thus hiding my
 real ip address to anything connected to this network. This VLAN is set up as `br23` on my TrueNAS.
 It uses the IP range `192.168.23.1/24`. 
 
